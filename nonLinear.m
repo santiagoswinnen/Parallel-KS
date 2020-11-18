@@ -1,4 +1,6 @@
 function U = nonLinear(U, k, h)
+
+    f = U  - (1/2 * 1i * k * h).*fft((real(ifft(U))).^2);
 %    TODO COMPLETE AS EXAMPLE BELOW WITH LINEAR PART OF KS
 %    f = 1i * s * k * stab/2;
     a = f .* fastFourierTransform(real(inverseFourierTransform(U)).^2);
