@@ -8,7 +8,7 @@ while q <= 0 || mod(q,2) > 0
 end
 s = q/2;
 
-integrators = {@get_phi_lie_trotter, @get_phi_strang};
+integrators = {@lieTrotter, @strang};
 integrator_num = 0;
 while integrator_num <= 0 || integrator_num > 2
     prompt = 'Please select an integrator (1: Lie-Trotter; 2: Strang): ';
@@ -46,7 +46,7 @@ nplt = floor((tmax/100)/delta_t);
 nmax = round(tmax/delta_t);
 udata = u.';
 tdata = 0;
-U = fast_ft(u);
+U = fastFourierTransform(u);
 
 for n = 1:nmax-40000
     t = n*delta_t;

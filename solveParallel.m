@@ -46,7 +46,7 @@ nplt = floor((tmax/100)/delta_t);
 nmax = round(tmax/delta_t);
 udata = u.';
 tdata = 0;
-U = fast_ft(u);
+U = fastFourierTransform(u);
 
 delete(gcp('nocreate'));
 parpool('local', q);
@@ -75,7 +75,7 @@ for n = 1:nmax-40000
     U = U_aux;
 
     if mod(n,nplt) == 0
-        u = real(inv_fft(U));
+        u = real(inverseFourierTransform(U));
         udata = [udata u.']; tdata = [tdata t];
         if mod(n,4*nplt) == 0
             plot(x,u,'LineWidth',2)
