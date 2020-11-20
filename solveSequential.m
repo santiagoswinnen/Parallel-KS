@@ -1,17 +1,11 @@
 clear all
 clc
 
-q = 0;
-while q <= 0 || mod(q,2) > 0
-    prompt = 'Please enter the order (even number > 0): ';
-    q = input(prompt);
-end
-s = q/2;
-
-integrators = {@lieTrotter, @strang};
+s=1;
+integrators = {@lieTrotter};
 integrator_num = 0;
 while integrator_num <= 0 || integrator_num > 2
-    prompt = 'Please select an integrator (1: Lie-Trotter; 2: Strang): ';
+    prompt = 'Please select an integrator (1: Lie-Trotter): ';
     integrator_num = input(prompt);
 end
 integrator = integrators{integrator_num};
@@ -19,7 +13,7 @@ integrator = integrators{integrator_num};
 set(gca,'FontSize',8)
 set(gca,'LineWidth',2)
 
-N = 256;
+N = 64;
 x = linspace(-10,10,N);
 delta_x = x(2) - x(1);% paso espacial
 delta_k = 2*pi/(N*delta_x);
@@ -35,7 +29,7 @@ u = cos(x).*(1 + sin(x)); % solucion inicial
 delta_t = 0.4/N^2; % paso temporal
 t = 0;
 plot(x,u,'LineWidth',2)
-axis([-10 10 0 10])
+axis([-10 10 -10 10])
 xlabel('x')
 ylabel('u')
 text(6,9,['t = ',num2str(t,'%1.2f')],'FontSize',14)
@@ -50,9 +44,10 @@ udata = u.';
 tdata = 0;
 U = fastFourierTransform(u);
 
-for n = 1:nmax-40000
+for n = 1:nmax
+    delta_t
     n
-    auxiliar = nmax-40000
+    auxiliar = nmax
     t = n*delta_t;
 
     U_aux = zeros(1, N);
@@ -67,11 +62,11 @@ for n = 1:nmax-40000
     U = U_aux;
 
     if mod(n,nplt) == 0
-        u = real(inv_fft(U));
+        u = real(inverseFourierTransform(U));
         udata = [udata u.']; tdata = [tdata t];
         if mod(n,4*nplt) == 0
             plot(x,u,'LineWidth',2)
-            axis([-10 10 0 10])
+            axis([-10 10 -10 10])
             xlabel('x')
             ylabel('u')
             text(6,9,['t = ',num2str(t,'%1.2f')],'FontSize',10)
@@ -83,5 +78,5 @@ end
 figure
 
 waterfall(x,tdata(1:4:end),udata(:,1:4:end)')
-xlabel x, ylabel t, axis([-10 10 0 tmax 0 10]), grid off
+xlabel x, ylabel t, axis([-10 10 0 tmax -3 3]), grid off
 zlabel u

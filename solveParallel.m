@@ -19,7 +19,7 @@ integrator = integrators{integrator_num};
 set(gca,'FontSize',8)
 set(gca,'LineWidth',2)
 
-N = 256;
+N = 50;
 x = linspace(-10,10,N);
 delta_x = x(2) - x(1);% paso espacial
 delta_k = 2*pi/(N*delta_x);
@@ -34,7 +34,7 @@ u = cos(x).*(1 + sin(x)); % solucion inicial
 delta_t = 0.4/N^2; % paso temporal
 t = 0;
 plot(x,u,'LineWidth',2)
-axis([-10 10 0 10])
+axis([-10 10 -10 10])
 xlabel('x')
 ylabel('u')
 text(6,9,['t = ',num2str(t,'%1.2f')],'FontSize',14)
@@ -52,10 +52,10 @@ U = fastFourierTransform(u);
 delete(gcp('nocreate'));
 parpool('local', q);
 
-for n = 1:nmax-40000
+for n = 1:nmax
     t = n*delta_t;
     n
-    auxiliar = nmax-40000
+    auxiliar = nmax
 
     U_aux = zeros(1, N);
     gammas_aux = gammas{s};
@@ -82,7 +82,7 @@ for n = 1:nmax-40000
         udata = [udata u.']; tdata = [tdata t];
         if mod(n,4*nplt) == 0
             plot(x,u,'LineWidth',2)
-            axis([-10 10 0 10])
+            axis([-10 10 -10 10])
             xlabel('x')
             ylabel('u')
             text(6,9,['t = ',num2str(t,'%1.2f')],'FontSize',10)
@@ -94,7 +94,7 @@ end
 figure
 
 waterfall(x,tdata(1:4:end),udata(:,1:4:end)')
-xlabel x, ylabel t, axis([-10 10 0 tmax 0 10]), grid off
+xlabel x, ylabel t, axis([-10 10 0 tmax -3 3]), grid off
 zlabel u
 
 delete(gcp('nocreate'));
