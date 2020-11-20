@@ -1,4 +1,4 @@
-function y = fast_ft(x)
+function y = fastFourierTransform(x)
   size_x = size(x);
   N = size_x(2);
   L=length(x);

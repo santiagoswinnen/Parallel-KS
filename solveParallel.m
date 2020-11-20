@@ -54,6 +54,8 @@ parpool('local', q);
 
 for n = 1:nmax-40000
     t = n*delta_t;
+    n
+    auxiliar = nmax-40000
 
     U_aux = zeros(1, N);
     gammas_aux = gammas{s};

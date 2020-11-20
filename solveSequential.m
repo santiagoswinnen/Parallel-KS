@@ -51,6 +51,8 @@ tdata = 0;
 U = fastFourierTransform(u);
 
 for n = 1:nmax-40000
+    n
+    auxiliar = nmax-40000
     t = n*delta_t;
 
     U_aux = zeros(1, N);
