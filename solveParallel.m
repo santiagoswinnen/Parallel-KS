@@ -28,7 +28,8 @@ k = [0:delta_k:(N/2-1)*delta_k,0,-(N/2-1)*delta_k:delta_k:-delta_k];% armonicos
 c_1 = 13; % velocidad 1
 c_2 = 3; % velocidad 2
 
-u = 1/2*c_1*(sech(sqrt(c_1)*(x+8)/2)).^2 + 1/2*c_2*(sech(sqrt(c_2)*(x+1)/2)).^2; % solucion inicial
+u = cos(x).*(1 + sin(x)); % solucion inicial
+% u = 1/2*c_1*(sech(sqrt(c_1)*(x+8)/2)).^2 + 1/2*c_2*(sech(sqrt(c_2)*(x+1)/2)).^2; % solucion inicial
 
 delta_t = 0.4/N^2; % paso temporal
 t = 0;
