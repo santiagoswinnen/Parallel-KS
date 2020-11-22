@@ -8,10 +8,10 @@ while q <= 0 || mod(q,2) > 0
 end
 s = q/2;
 
-integrators = {@lieTrotter, @strang};
+integrators = {@lieTrotter};
 integrator_num = 0;
 while integrator_num <= 0 || integrator_num > 2
-    prompt = 'Please select an integrator (1: Lie-Trotter; 2: Strang): ';
+    prompt = 'Please select an integrator (1: Lie-Trotter): ';
     integrator_num = input(prompt);
 end
 integrator = integrators{integrator_num};
@@ -19,7 +19,7 @@ integrator = integrators{integrator_num};
 set(gca,'FontSize',8)
 set(gca,'LineWidth',2)
 
-N = 50;
+N = 16;
 x = linspace(-10,10,N);
 delta_x = x(2) - x(1);% paso espacial
 delta_k = 2*pi/(N*delta_x);
